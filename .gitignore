@@ -1,0 +1,42 @@
+# Node modules
+/node_modules/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Database files
+*.sqlite
+*.db
+
+# IDE and OS specific files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Build output
+/dist
+/build
+
+# Temporary files
+tmp/
+temp/
+
+# Coverage
+coverage/
+
+# npm package lock file (if you don't want to track the exact version)
+package-lock.json
+
+# Sequelize migrations (optional, if you don't want to include migration files)
+migrations/
+
+# Documentation
+docs/

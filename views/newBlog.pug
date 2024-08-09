@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    title Create a New Blog Post
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css')
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+      }
+      form {
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 500px;
+        margin: auto;
+      }
+      input[type="text"], textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
+      input[type="submit"] {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+  body
+    h1 Create a New Blog Post
+    form(action='/new-blog' method='POST')
+      label(for='title') Title
+      input(type='text' id='title' name='title' required)
+
+      label(for='content') Content
+      textarea(id='content' name='content' rows='10' required)
+
+      input(type='submit' value='Submit')

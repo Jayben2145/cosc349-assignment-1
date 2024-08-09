@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title Blog Page
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css')
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+      }
+      .blog-post {
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+      }
+      .blog-post h2 {
+        margin-top: 0;
+        color: #333;
+      }
+      .blog-post p {
+        color: #555;
+      }
+      .blog-post .timestamp {
+        font-size: 0.8em;
+        color: #999;
+      }
+  body
+    h1 Blog Posts
+    each blog in blogs
+      .blog-post
+        h2= blog.title
+        p.timestamp Posted on #{new Date(blog.createdAt).toLocaleDateString()} at #{new Date(blog.createdAt).toLocaleTimeString()}
+        p= blog.content
