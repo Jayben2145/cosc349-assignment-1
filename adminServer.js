@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const { sequelize, Blog } = require('./models');
 
 const app = express();
-const port = 3000; // Different port from your main server
+const port = 3001; // Different port from your main server
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
