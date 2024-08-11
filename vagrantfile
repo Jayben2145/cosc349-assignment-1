@@ -1,0 +1,69 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "ubuntu/bionic64"
+  
+    config.vm.define "sql_server" do |sql|
+      sql.vm.hostname = "sql-server"
+      sql.vm.network "private_network", ip: "192.168.10.100"
+      sql.vm.network "forwarded_port", guest: 3306, host: 3306, auto_correct: true
+      sql.vm.provider "virtualbox" do |vb|
+        vb.memory = "512"
+        vb.cpus = 1
+      end
+      sql.vm.provision "shell", inline: <<-SHELL
+        apt-get update
+        apt-get install -y mysql-server
+        sed -i 's/bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
+        systemctl restart mysql.service
+        systemctl enable mysql
+        mysql < /vagrant/db_setup.sql
+      SHELL
+    end
+  
+  
+    # Define the web server VM
+    config.vm.define "web_server" do |web|
+      web.vm.hostname = "web-server"
+      web.vm.network "private_network", ip: "192.168.10.101"
+      web.vm.network "forwarded_port", guest: 3000, host: 3000, auto_correct: true
+      web.vm.provider "virtualbox" do |vb|
+        vb.memory = "512"
+        vb.cpus = 1
+      end
+      web.vm.provision "shell", inline: <<-SHELL
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        nvm install 16
+        nvm use 16
+        git clone https://github.com/Jayben2145/cosc349-assignment-1.git /home/vagrant/app
+        chmod -R 777 /home/vagrant/app
+        cd /home/vagrant/app
+        npm install
+        node server.js &
+      SHELL
+    end
+  
+    # Define the admin server VM
+    config.vm.define "admin_server" do |admin|
+      admin.vm.hostname = "admin-server"
+      admin.vm.network "private_network", ip: "192.168.10.102"
+      admin.vm.network "forwarded_port", guest: 3001, host: 3001, auto_correct: true
+      admin.vm.provider "virtualbox" do |vb|
+        vb.memory = "512"
+        vb.cpus = 1
+      end
+      admin.vm.provision "shell", inline: <<-SHELL
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        nvm install 16
+        nvm use 16
+        git clone https://github.com/Jayben2145/cosc349-assignment-1.git /home/vagrant/app
+        chmod -R 777 /home/vagrant/app
+        cd /home/vagrant/app
+        npm install
+        node adminServer.js &
+      SHELL
+    end
+  end
+  
