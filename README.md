@@ -17,7 +17,7 @@ To clone and run the project, follow these steps:
 
 Clone the repository:
 
-git clone https://github.com/YourUsername/YourRepo.git
+git clone https://github.com/Jayben2145/cosc349-assignment-1
 cd YourRepo
 Run Vagrant to build and start the VMs:
 
@@ -48,3 +48,5 @@ Admin Server
 IP: 192.168.10.102
 Ports: Admin server (3001, forwarded to the host)
 The admin server provides full read/write access to the MySQL database for managing blog entries.
+
+chat gpt assisted in making the readme
