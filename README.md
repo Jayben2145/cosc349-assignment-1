@@ -49,4 +49,4 @@ IP: 192.168.10.102
 Ports: Admin server (3001, forwarded to the host)
 The admin server provides full read/write access to the MySQL database for managing blog entries.
 
-chat gpt assisted in making the readme
+chat gpt assisted in making the readme 
